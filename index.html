@@ -65,10 +65,10 @@
         aspect-ratio: 1/1;
         background-color: #07468c;
       }
-      25% {
+      33% {
         transform: translateX(var(--negHalfObjectWidth));
       }
-      50% {
+      66% {
         transform: translateX(var(--oneHalfObjectWidth));
       }
       100% {
@@ -78,6 +78,34 @@
         aspect-ratio: 1/1;
         border-radius: 50%;
         background-color: rgb(180, 168, 2);
+      }
+    }
+    .animation .object {
+      animation: moveReverse ease;
+      animation-duration: 2s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes moveReverse {
+      0% {
+        transform: translateX(var(--blockWidth));
+        border: 2px solid black;
+        width: 25%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rgb(180, 168, 2);
+      }
+      33%{
+        transform: translateX(var(--oneHalfObjectWidth));
+      }
+      66%{
+        transform: translateX(var(--negHalfObjectWidth));
+      }
+      100% {
+        border: 2px solid black;
+        width: 25%;
+        aspect-ratio: 1/1;
+        background-color: #07468c;
       }
     }
     .bottom {
@@ -119,7 +147,7 @@
         "--negHalfObjectWidth",
         negHalfObjectWidth
       );
-  
+
       var onresize = function (e) {
         containerWidth = document.getElementById("container").clientWidth;
         objectWidth = document.querySelector(".object").clientWidth;
