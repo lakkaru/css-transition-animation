@@ -11,7 +11,8 @@
   <style>
     :root {
       --blockWidth: 100%;
-      /* --object-width:0%; */
+      --oneHalfObjectWidth: 112.5%;
+      --negHalfObjectWidth: 12.5%;
     }
     * {
       margin: 0;
@@ -21,6 +22,7 @@
       background-color: rgb(108, 128, 121);
       display: flex;
       justify-content: space-evenly;
+      overflow: hidden;
     }
     .transition {
       border: 2px solid black;
@@ -41,7 +43,7 @@
       width: 25%;
       aspect-ratio: 1/1;
       background-color: #07468c;
-      transition: 2s cubic-bezier(.56,-0.95,.31,1.88);
+      transition: 2s cubic-bezier(0.56, -0.95, 0.31, 1.88);
     }
 
     .transition:hover .object {
@@ -49,7 +51,35 @@
       border-radius: 50%;
       background-color: rgb(180, 168, 2);
     }
- 
+    .animation:hover .object {
+      /* background-color: red; */
+      animation: moveX ease;
+      animation-duration: 2s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes moveX {
+      0% {
+        border: 2px solid black;
+        width: 25%;
+        aspect-ratio: 1/1;
+        background-color: #07468c;
+      }
+      25% {
+        transform: translateX(var(--negHalfObjectWidth));
+      }
+      50% {
+        transform: translateX(var(--oneHalfObjectWidth));
+      }
+      100% {
+        transform: translateX(var(--blockWidth));
+        border: 2px solid black;
+        width: 25%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rgb(180, 168, 2);
+      }
+    }
     .bottom {
       bottom: 0px;
     }
@@ -74,15 +104,42 @@
       var objectWidth = document.querySelector(".object").clientWidth;
       var travelWidth = document.querySelector(".trans-container").clientWidth;
       travelWidth = containerWidth - objectWidth;
+      oneHalfObjectWidth = travelWidth + objectWidth / 2;
+      negHalfObjectWidth = objectWidth / 2;
+      negHalfObjectWidth = negHalfObjectWidth * -1;
       travelWidth += "px";
+      oneHalfObjectWidth += "px";
+      negHalfObjectWidth += "px";
+      document.documentElement.style.setProperty(
+        "--oneHalfObjectWidth",
+        oneHalfObjectWidth
+      );
       document.documentElement.style.setProperty("--blockWidth", travelWidth);
-      console.log(travelWidth);
+      document.documentElement.style.setProperty(
+        "--negHalfObjectWidth",
+        negHalfObjectWidth
+      );
+  
       var onresize = function (e) {
         containerWidth = document.getElementById("container").clientWidth;
         objectWidth = document.querySelector(".object").clientWidth;
+        travelWidth = document.querySelector(".trans-container").clientWidth;
         travelWidth = containerWidth - objectWidth;
+        oneHalfObjectWidth = travelWidth + objectWidth / 2;
+        negHalfObjectWidth = objectWidth / 2;
+        negHalfObjectWidth = negHalfObjectWidth * -1;
         travelWidth += "px";
+        oneHalfObjectWidth += "px";
+        negHalfObjectWidth += "px";
+        document.documentElement.style.setProperty(
+          "--oneHalfObjectWidth",
+          oneHalfObjectWidth
+        );
         document.documentElement.style.setProperty("--blockWidth", travelWidth);
+        document.documentElement.style.setProperty(
+          "--negHalfObjectWidth",
+          negHalfObjectWidth
+        );
       };
       window.onresize = onresize;
     </script>
