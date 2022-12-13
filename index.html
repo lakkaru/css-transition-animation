@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CSS-transitions-animations</title>
+  </head>
+
+  <style>
+    :root {
+      --blockWidth: 100%;
+      /* --object-width:0%; */
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: rgb(108, 128, 121);
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .transition {
+      border: 2px solid black;
+      background-color: teal;
+      width: 50%;
+      margin: 40px;
+      aspect-ratio: 1/1;
+    }
+    .animation {
+      border: 2px solid black;
+      background-color: teal;
+      width: 50%;
+      margin: 40px;
+      aspect-ratio: 1/1;
+    }
+    .object {
+      border: 2px solid black;
+      width: 25%;
+      aspect-ratio: 1/1;
+      background-color: #07468c;
+      transition: 2s cubic-bezier(.56,-0.95,.31,1.88);
+    }
+
+    .transition:hover .object {
+      transform: translateX(var(--blockWidth));
+      border-radius: 50%;
+      background-color: rgb(180, 168, 2);
+    }
+ 
+    .bottom {
+      bottom: 0px;
+    }
+  </style>
+  <body>
+    <div class="transition" id="container">
+      <div class="trans-container">
+        <div class="object"></div>
+      </div>
+      <div class="bottom"><span>With Transtion</span></div>
+    </div>
+
+    <div class="animation" id="container">
+      <div class="anim-container">
+        <div class="object"></div>
+      </div>
+      <div class="bottom"><span>With Animation</span></div>
+    </div>
+
+    <script>
+      var containerWidth = document.getElementById("container").clientWidth;
+      var objectWidth = document.querySelector(".object").clientWidth;
+      var travelWidth = document.querySelector(".trans-container").clientWidth;
+      travelWidth = containerWidth - objectWidth;
+      travelWidth += "px";
+      document.documentElement.style.setProperty("--blockWidth", travelWidth);
+      console.log(travelWidth);
+      var onresize = function (e) {
+        containerWidth = document.getElementById("container").clientWidth;
+        objectWidth = document.querySelector(".object").clientWidth;
+        travelWidth = containerWidth - objectWidth;
+        travelWidth += "px";
+        document.documentElement.style.setProperty("--blockWidth", travelWidth);
+      };
+      window.onresize = onresize;
+    </script>
+  </body>
+</html>
